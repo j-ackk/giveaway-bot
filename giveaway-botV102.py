@@ -61,7 +61,7 @@ async def giveaway(ctx):
         try:
             message = await client.wait_for('message', timeout= 30.0, check= check)
         except asyncio.TimeoutError:
-            await ctx.send('You didn\'t answer in time.  Please try again and be sure to send your answer within 30 seconds of the question.')
+            await ctx.send('You didn\'t answer in time. Please try again and be sure to send your answer within 30 seconds of the question.')
             return
         else:
             giveaway_answers.append(message.content)
@@ -71,7 +71,7 @@ async def giveaway(ctx):
     try:
         c_id = int(giveaway_answers[0][2:-1])
     except:
-        await ctx.send(f'You failed to mention the channel correctly.  Please do it like this: {ctx.channel.mention}')
+        await ctx.send(f'You failed to mention the channel correctly. Please do it like this: {ctx.channel.mention}')
         return
     
     # Storing the variables needed to run the rest of the commands
@@ -86,8 +86,8 @@ async def giveaway(ctx):
     give = discord.Embed(color = 0x2ecc71)
     give.set_author(name = f'GIVEAWAY TIME!', icon_url = 'https://i.imgur.com/VaX0pfM.png')
     give.add_field(name= f'{ctx.author.name} is giving away: {prize}!', value = f'React with 🎉 to enter!\n Ends in {round(time/60, 2)} minutes!', inline = False)
-    end = datetime.datetime.utcnow() + datetime.timedelta(seconds = time)
-    give.set_footer(text = f'Giveaway ends at {end} UTC!')
+    end = datetime.datetime.utcnow() + datetime.timedelta(seconds=time)
+    give.set_footer(text = f'Giveaway ends at {end.strftime("%m/%d/%Y, %H:%M")} UTC!')
     my_message = await channel.send(embed = give)
     
     # Reacts to the message
